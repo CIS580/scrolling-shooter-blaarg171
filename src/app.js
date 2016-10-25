@@ -26,8 +26,8 @@ var player = new Player(bullets, missiles);
  * @function onkeydown
  * Handles keydown events
  */
-window.onkeydown = function(event) {
-  switch(event.key) {
+window.onkeydown = function (event) {
+  switch (event.key) {
     case "ArrowUp":
     case "w":
       input.up = true;
@@ -55,8 +55,8 @@ window.onkeydown = function(event) {
  * @function onkeyup
  * Handles keydown events
  */
-window.onkeyup = function(event) {
-  switch(event.key) {
+window.onkeyup = function (event) {
+  switch (event.key) {
     case "ArrowUp":
     case "w":
       input.up = false;
@@ -85,7 +85,7 @@ window.onkeyup = function(event) {
  * Advances the game in sync with the refresh rate of the screen
  * @param {DOMHighResTimeStamp} timestamp the current time
  */
-var masterLoop = function(timestamp) {
+var masterLoop = function (timestamp) {
   game.loop(timestamp);
   window.requestAnimationFrame(masterLoop);
 }
@@ -108,20 +108,20 @@ function update(elapsedTime) {
   camera.update(player.position);
 
   // Update bullets
-  bullets.update(elapsedTime, function(bullet){
-    if(!camera.onScreen(bullet)) return true;
+  bullets.update(elapsedTime, function (bullet) {
+    if (!camera.onScreen(bullet)) return true;
     return false;
   });
 
   // Update missiles
   var markedForRemoval = [];
-  missiles.forEach(function(missile, i){
+  missiles.forEach(function (missile, i) {
     missile.update(elapsedTime);
-    if(Math.abs(missile.position.x - camera.x) > camera.width * 2)
+    if (Math.abs(missile.position.x - camera.x) > camera.width * 2)
       markedForRemoval.unshift(i);
   });
   // Remove missiles that have gone off-screen
-  markedForRemoval.forEach(function(index){
+  markedForRemoval.forEach(function (index) {
     missiles.splice(index, 1);
   });
 }
@@ -162,16 +162,16 @@ function render(elapsedTime, ctx) {
   * @param {CanvasRenderingContext2D} ctx the context to render to
   */
 function renderWorld(elapsedTime, ctx) {
-    // Render the bullets
-    bullets.render(elapsedTime, ctx);
+  // Render the bullets
+  bullets.render(elapsedTime, ctx);
 
-    // Render the missiles
-    missiles.forEach(function(missile) {
-      missile.render(elapsedTime, ctx);
-    });
+  // Render the missiles
+  missiles.forEach(function (missile) {
+    missile.render(elapsedTime, ctx);
+  });
 
-    // Render the player
-    player.render(elapsedTime, ctx);
+  // Render the player
+  player.render(elapsedTime, ctx);
 }
 
 /**

@@ -26,7 +26,7 @@ function Camera(screen) {
  * Updates the camera based on the supplied target
  * @param {Vector} target what the camera is looking at
  */
-Camera.prototype.update = function(target) {
+Camera.prototype.update = function (target) {
   // TODO: Align camera with player
 }
 
@@ -36,13 +36,13 @@ Camera.prototype.update = function(target) {
  * @param {Vector} target a point in the world
  * @return true if target is on-screen, false if not
  */
-Camera.prototype.onScreen = function(target) {
+Camera.prototype.onScreen = function (target) {
   return (
-     target.x > this.x &&
-     target.x < this.x + this.width &&
-     target.y > this.y &&
-     target.y < this.y + this.height
-   );
+    target.x > this.x &&
+    target.x < this.x + this.width &&
+    target.y > this.y &&
+    target.y < this.y + this.height
+  );
 }
 
 /**
@@ -51,7 +51,7 @@ Camera.prototype.onScreen = function(target) {
  * @param {Vector} worldCoordinates
  * @return the tranformed coordinates
  */
-Camera.prototype.toScreenCoordinates = function(worldCoordinates) {
+Camera.prototype.toScreenCoordinates = function (worldCoordinates) {
   return Vector.subtract(worldCoordinates, this);
 }
 
@@ -61,6 +61,6 @@ Camera.prototype.toScreenCoordinates = function(worldCoordinates) {
  * @param {Vector} screenCoordinates
  * @return the tranformed coordinates
  */
-Camera.prototype.toWorldCoordinates = function(screenCoordinates) {
+Camera.prototype.toWorldCoordinates = function (screenCoordinates) {
   return Vector.add(screenCoordinates, this);
 }

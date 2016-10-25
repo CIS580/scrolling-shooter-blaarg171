@@ -23,7 +23,7 @@ module.exports = exports = {
  * @returns a new vector representing the scaled original
  */
 function scale(a, scale) {
- return {x: a.x * scale, y: a.y * scale};
+  return { x: a.x * scale, y: a.y * scale };
 }
 
 /**
@@ -34,7 +34,7 @@ function scale(a, scale) {
  * @return the computed sum
 */
 function add(a, b) {
- return {x: a.x + b.x, y: a.y + b.y};
+  return { x: a.x + b.x, y: a.y + b.y };
 }
 
 /**
@@ -45,7 +45,7 @@ function add(a, b) {
  * @return the computed difference
  */
 function subtract(a, b) {
-  return {x: a.x - b.x, y: a.y - b.y};
+  return { x: a.x - b.x, y: a.y - b.y };
 }
 
 /**
@@ -91,5 +91,5 @@ function magnitude(a) {
  */
 function normalize(a) {
   var mag = magnitude(a);
-  return {x: a.x / mag, y: a.y / mag};
+  return { x: a.x / mag, y: a.y / mag };
 }
