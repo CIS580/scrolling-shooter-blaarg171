@@ -18,7 +18,7 @@ var input = {
   right: false
 }
 var camera = new Camera(canvas);
-var bullets = new BulletPool(10);
+var bullets = new BulletPool(30);
 var missiles = [];
 var player = new Player(bullets, missiles);
 
@@ -30,23 +30,31 @@ window.onkeydown = function (event) {
   switch (event.key) {
     case "ArrowUp":
     case "w":
-      input.up = true;
       event.preventDefault();
+      input.up = true;
       break;
+
     case "ArrowDown":
     case "s":
-      input.down = true;
       event.preventDefault();
+      input.down = true;
       break;
+
     case "ArrowLeft":
     case "a":
-      input.left = true;
       event.preventDefault();
+      input.left = true;
       break;
+
     case "ArrowRight":
     case "d":
-      input.right = true;
       event.preventDefault();
+      input.right = true;
+      break;
+
+    case " ":
+      event.preventDefault();
+      player.shooting = true;
       break;
   }
 }
@@ -59,24 +67,31 @@ window.onkeyup = function (event) {
   switch (event.key) {
     case "ArrowUp":
     case "w":
-      input.up = false;
       event.preventDefault();
+      input.up = false;
       break;
+
     case "ArrowDown":
     case "s":
-      input.down = false;
       event.preventDefault();
+      input.down = false;
       break;
+
     case "ArrowLeft":
     case "a":
-      input.left = false;
       event.preventDefault();
+      input.left = false;
       break;
+
     case "ArrowRight":
     case "d":
-      input.right = false;
       event.preventDefault();
+      input.right = false;
       break;
+
+    case " ":
+      event.preventDefault();
+      player.shooting = false;
   }
 }
 

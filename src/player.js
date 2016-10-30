@@ -5,8 +5,9 @@ const Vector = require('./vector');
 const Missile = require('./missile');
 
 /* Constants */
-const PLAYER_SPEED = 5;
+const PLAYER_SPEED = 3;
 const BULLET_SPEED = 10;
+const WEAPON_COOLDOWN = 100;
 
 /**
  * @module Player
@@ -28,6 +29,11 @@ function Player(bullets, missiles) {
   this.velocity = { x: 0, y: 0 };
   this.img = new Image()
   this.img.src = 'assets/tyrian.shp.007D3C.png';
+  this.shooting = false;
+
+  this.timers = {
+    weapon: 0
+  }
 }
 
 /**
@@ -38,14 +44,15 @@ function Player(bullets, missiles) {
  * boolean properties: up, left, right, down
  */
 Player.prototype.update = function (elapsedTime, input) {
+  this.timers.weapon += elapsedTime;
 
   // set the velocity
   this.velocity.x = 0;
   if (input.left) this.velocity.x -= PLAYER_SPEED;
   if (input.right) this.velocity.x += PLAYER_SPEED;
   this.velocity.y = 0;
-  if (input.up) this.velocity.y -= PLAYER_SPEED / 2;
-  if (input.down) this.velocity.y += PLAYER_SPEED / 2;
+  if (input.up) this.velocity.y -= PLAYER_SPEED - 1;
+  if (input.down) this.velocity.y += PLAYER_SPEED - 1;
 
   // determine player angle
   this.angle = 0;
@@ -60,6 +67,11 @@ Player.prototype.update = function (elapsedTime, input) {
   if (this.position.x < 0) this.position.x = 0;
   if (this.position.x > 1024) this.position.x = 1024;
   if (this.position.y > 786) this.position.y = 786;
+
+  if (this.shooting && this.timers.weapon >= WEAPON_COOLDOWN) {
+    this.fireBullet({ x: 0, y: -1 });
+    this.timers.weapon = 0;
+  }
 }
 
 /**
