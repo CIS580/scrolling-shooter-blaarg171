@@ -5,9 +5,9 @@ const Vector = require('./vector');
 const Missile = require('./missile');
 
 /* Constants */
-const PLAYER_SPEED = 3;
+const PLAYER_SPEED = 5;
 const BULLET_SPEED = 10;
-const WEAPON_COOLDOWN = 100;
+const WEAPON_COOLDOWN = 150;
 
 /**
  * @module Player
@@ -51,8 +51,8 @@ Player.prototype.update = function (elapsedTime, input) {
   if (input.left) this.velocity.x -= PLAYER_SPEED;
   if (input.right) this.velocity.x += PLAYER_SPEED;
   this.velocity.y = 0;
-  if (input.up) this.velocity.y -= PLAYER_SPEED - 1;
-  if (input.down) this.velocity.y += PLAYER_SPEED - 1;
+  if (input.up) this.velocity.y -= PLAYER_SPEED - 2;
+  if (input.down) this.velocity.y += PLAYER_SPEED - 2;
 
   // determine player angle
   this.angle = 0;
