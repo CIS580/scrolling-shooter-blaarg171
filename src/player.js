@@ -5,9 +5,10 @@ const Vector = require('./vector');
 const Missile = require('./missile');
 
 /* Constants */
+const SPRITE_SCALE = 0.67; 
 const PLAYER_SPEED = 5;
 const BULLET_SPEED = 10;
-const WEAPON_COOLDOWN = 150;
+const WEAPON_COOLDOWN = 200;
 
 /**
  * @module Player
@@ -28,7 +29,9 @@ function Player(bullets, missiles) {
   this.position = { x: 200, y: 200 };
   this.velocity = { x: 0, y: 0 };
   this.img = new Image()
-  this.img.src = 'assets/tyrian.shp.007D3C.png';
+  this.img.src = 'assets/spaceArt/png/player.png';
+  this.img.w = 99 * SPRITE_SCALE;
+  this.img.h = 75 * SPRITE_SCALE;
   this.shooting = false;
 
   this.timers = {
@@ -82,9 +85,11 @@ Player.prototype.update = function (elapsedTime, input) {
  */
 Player.prototype.render = function (elapasedTime, ctx) {
   var offset = this.angle * 23;
+  ctx.fillStyle = "pink";
+  ctx.fillRect(this.position.x, this.position.y, 1, 1);
   ctx.save();
   ctx.translate(this.position.x, this.position.y);
-  ctx.drawImage(this.img, 48 + offset, 57, 23, 27, -12.5, -12, 23, 27);
+  ctx.drawImage(this.img, -this.img.w/2, -this.img.h/2, this.img.w, this.img.h);
   ctx.restore();
 }
 
@@ -94,9 +99,9 @@ Player.prototype.render = function (elapasedTime, ctx) {
  * @param {Vector} direction
  */
 Player.prototype.fireBullet = function (direction) {
-  var position = Vector.add(this.position, { x: 30, y: 30 });
+  // var position = Vector.add(this.position, { x: 30, y: 30 });
   var velocity = Vector.scale(Vector.normalize(direction), BULLET_SPEED);
-  this.bullets.add(position, velocity);
+  this.bullets.add(this.position, velocity);
 }
 
 /**
@@ -106,8 +111,8 @@ Player.prototype.fireBullet = function (direction) {
  */
 Player.prototype.fireMissile = function () {
   if (this.missileCount > 0) {
-    var position = Vector.add(this.position, { x: 0, y: 30 })
-    var missile = new Missile(position);
+    // var position = Vector.add(this.position, { x: 0, y: 30 })
+    var missile = new Missile(this.position);
     this.missiles.push(missile);
     this.missileCount--;
   }
