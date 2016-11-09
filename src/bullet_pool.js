@@ -11,6 +11,8 @@
  */
 module.exports = exports = BulletPool;
 
+const SPRITE_SCALE = 0.9;
+
 /**
  * @constructor BulletPool
  * Creates a BulletPool of the specified size
@@ -20,6 +22,10 @@ function BulletPool(maxSize) {
   this.pool = new Float32Array(4 * maxSize);
   this.end = 0;
   this.max = maxSize;
+  this.img = new Image();
+  this.img.src = encodeURI("assets/spaceArt/png/laserGreen.png");
+  this.img.w = 9 * SPRITE_SCALE;
+  this.img.h = 33 * SPRITE_SCALE;
 }
 
 /**
@@ -90,7 +96,8 @@ BulletPool.prototype.render = function (elapsedTime, ctx) {
   ctx.fillStyle = "white";
   for (var i = 0; i < this.end; i++) {
     ctx.moveTo(this.pool[4 * i], this.pool[4 * i + 1]);
-    ctx.arc(this.pool[4 * i], this.pool[4 * i + 1], 2, 0, 2 * Math.PI);
+    // ctx.arc(this.pool[4 * i], this.pool[4 * i + 1], 2, 0, 2 * Math.PI);
+    ctx.drawImage(this.img, this.pool[4 * i]-this.img.w/2, this.pool[4 * i + 1]-this.img.h/2);
   }
   ctx.fill();
   ctx.restore();

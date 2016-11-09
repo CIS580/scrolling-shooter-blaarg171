@@ -4,3 +4,8 @@ canvas#screen {
   box-shadow: 4px 4px 4px #777;
   position: relative;
 }
+
+p {
+  margin-left: 1em;
+  font-size: large;
+}

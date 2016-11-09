@@ -1,11 +1,12 @@
 "use strict";
 
 /* Classes and Libraries */
-const Game = require('./game');
-const Vector = require('./vector');
-const Camera = require('./camera');
-const Player = require('./player');
-const BulletPool = require('./bullet_pool');
+const Game = require("./game");
+const Vector = require("./vector");
+const Camera = require("./camera");
+const Player = require("./player");
+const BulletPool = require("./bullet_pool");
+const Map = require("./map.js");
 
 
 /* Global variables */
@@ -21,6 +22,7 @@ var camera = new Camera(canvas);
 var bullets = new BulletPool(30);
 var missiles = [];
 var player = new Player(bullets, missiles);
+var map = new Map(canvas);
 
 /**
  * @function onkeydown
@@ -116,6 +118,8 @@ masterLoop(performance.now());
  */
 function update(elapsedTime) {
 
+  map.update(elapsedTime);
+
   // update the player
   player.update(elapsedTime, input);
 
@@ -150,9 +154,6 @@ function update(elapsedTime) {
   */
 function render(elapsedTime, ctx) {
   ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, 1024, 786);
-
-  // TODO: Render background
 
   // Transform the coordinate system using
   // the camera position BEFORE rendering
@@ -177,6 +178,8 @@ function render(elapsedTime, ctx) {
   * @param {CanvasRenderingContext2D} ctx the context to render to
   */
 function renderWorld(elapsedTime, ctx) {
+  map.render(ctx);
+
   // Render the bullets
   bullets.render(elapsedTime, ctx);
 
